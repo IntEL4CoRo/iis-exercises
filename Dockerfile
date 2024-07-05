@@ -19,7 +19,6 @@ RUN apt update && apt install -y \
     apt-get clean
 
 RUN pip install --upgrade lxml
-
 # Need to source the gazebo setup.bash to set up the envrionment variables
 RUN echo "source /usr/share/gazebo/setup.bash" >> /home/${NB_USER}/.bashrc
 ENV GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/${ROS_DISTRO}/share/turtlebot3_gazebo/models
@@ -43,6 +42,10 @@ RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
     colcon build --symlink-install --parallel-workers 2
 RUN echo "source ${ROS_WS}/install/setup.bash" >> /home/${NB_USER}/.bashrc
 
-COPY --chown=${NB_USER}:users . /home/${NB_USER}/work
-WORKDIR /home/${NB_USER}/work
+# Install developing jupyterlab extensions
+RUN pip install https://raw.githubusercontent.com/yxzhan/extension-examples/main/cell-toolbar/dist/jupyterlab_examples_cell_toolbar-0.1.4.tar.gz
+RUN pip install git+https://github.com/yxzhan/jupyterlab-urdf.git@main
+
+COPY --chown=${NB_USER}:users . /home/${NB_USER}/iis-exercises
+WORKDIR /home/${NB_USER}/iis-exercises
 RUN ln -s ${ROS_WS} ROS_WS

@@ -3,14 +3,14 @@ from IPython.display import display, HTML
 from sidecar import Sidecar
 
 # Display remote desktop on sidecar tab
-def display_desktop():
+def display_desktop(anchor='right'):
     try:
         JUPYTERHUB_USER = os.environ['JUPYTERHUB_USER']
     except KeyError:
         JUPYTERHUB_USER = None
     url_prefix = f"/user/{JUPYTERHUB_USER}" if JUPYTERHUB_USER is not None else ''
     remote_desktop_url = f"{url_prefix}/desktop"
-    sc = Sidecar(title='Desktop')
+    sc = Sidecar(title='Desktop', anchor=anchor)
     with sc:
         # The inserted custom HTML and CSS snippets are to make the tab resizable
         display(HTML(f"""
@@ -35,3 +35,4 @@ def display_desktop():
                 <iframe src="{remote_desktop_url}" width="100%" height="100%"></iframe>
             </div>
         """))
+
