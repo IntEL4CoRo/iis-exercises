@@ -44,7 +44,7 @@ RUN echo "source ${ROS_WS}/install/setup.bash" >> /home/${NB_USER}/.bashrc
 
 # Install developing jupyterlab extensions
 RUN pip install https://raw.githubusercontent.com/yxzhan/extension-examples/main/cell-toolbar/dist/jupyterlab_examples_cell_toolbar-0.1.4.tar.gz
-RUN pip install git+https://github.com/yxzhan/jupyterlab-urdf.git@main
+RUN pip install git+https://github.com/yxzhan/jupyterlab-urdf.git@dev
 
 COPY --chown=${NB_USER}:users . /home/${NB_USER}/iis-exercises
 WORKDIR /home/${NB_USER}/iis-exercises

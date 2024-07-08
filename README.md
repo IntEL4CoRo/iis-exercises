@@ -1,4 +1,4 @@
-# Integrated Intelligent Systems Exercises
+# Integrated Intelligent Systems Course Exercises
 
 [![Binder](https://binder.intel4coro.de/badge_logo.svg)](https://binder.intel4coro.de/v2/gh/IntEL4CoRo/iis-exercises.git/main)
 
