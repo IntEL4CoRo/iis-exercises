@@ -3,12 +3,12 @@
     <link name="base_link">
         <visual>
             <geometry>
-                <box size="1 1 1"/>
+                <box size="1 1 1" />
             </geometry>
             <material name="LightGrey">
-                <color rgba="0.7 0.7 0.7 1"/>
+                <color rgba="0.7 0.7 0.7 1" />
             </material>
-            <origin rpy="0 0 0" xyz="0 0 0.5"/>
+            <origin rpy="0 0 0" xyz="0 0 0.5" />
         </visual>
     </link>
 </robot>

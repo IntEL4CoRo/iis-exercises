@@ -12,7 +12,7 @@ services:
     privileged: true
     # user: root
     user: jovyan
-    working_dir: /home/jovyan
+    working_dir: /home/jovyan/work
     command: jupyter lab --allow-root --NotebookApp.token='' --no-browser --ip=0.0.0.0
     volumes:
       - ./:/home/jovyan/work

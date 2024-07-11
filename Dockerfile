@@ -30,7 +30,13 @@ USER ${NB_USER}
 RUN mkdir -p ${ROS_WS}/src
 WORKDIR ${ROS_WS}
 RUN cd src && \
-    git clone -b ${ROS_DISTRO}-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git 
+    git clone -b ${ROS_DISTRO}-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+
+RUN git clone https://github.com/bdaiinstitute/spot_ros2.git /tmp/spot_ros2
+RUN mv /tmp/spot_ros2/spot_description ${ROS_WS}/src/spot_description
+
+COPY --chown=${NB_USER}:users 02_URDF/examples/t12_description ${ROS_WS}/src/t12_description
+COPY --chown=${NB_USER}:users 02_URDF/examples/iai_kitchen ${ROS_WS}/src/iai_kitchen
 
 USER root
 RUN rosdep update && \
@@ -48,4 +54,8 @@ RUN pip install git+https://github.com/yxzhan/jupyterlab-urdf.git@dev
 
 COPY --chown=${NB_USER}:users . /home/${NB_USER}/iis-exercises
 WORKDIR /home/${NB_USER}/iis-exercises
-RUN ln -s ${ROS_WS} ROS_WS
+
+# --- Entrypoint --- #
+COPY --chown=${NB_USER}:users entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]
+CMD [ "start-notebook.sh" ]
