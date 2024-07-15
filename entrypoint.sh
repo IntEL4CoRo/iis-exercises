@@ -6,7 +6,7 @@ source /usr/share/gazebo/setup.bash
 # Set workspace variables
 source ${ROS_WS}/install/setup.bash
 
-
+rm ROS_WS
 ln -s ${ROS_WS} $PWD/ROS_WS
 rm 02_URDF/examples/spot_description
 ln -s ${ROS_WS}/src/spot_description 02_URDF/examples/spot_description
