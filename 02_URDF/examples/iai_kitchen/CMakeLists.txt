@@ -21,7 +21,7 @@ find_package(urdf REQUIRED)
 ################################################################################
 # Install
 ################################################################################
-install(DIRECTORY meshes
+install(DIRECTORY meshes urdf_obj
   DESTINATION share/${PROJECT_NAME}
 )
 
