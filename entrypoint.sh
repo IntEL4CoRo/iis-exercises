@@ -8,10 +8,24 @@ source ${ROS_WS}/install/setup.bash
 
 rm ROS_WS
 ln -s ${ROS_WS} $PWD/ROS_WS
-rm 02_URDF/examples/spot_description
-ln -s ${ROS_WS}/src/spot_description 02_URDF/examples/spot_description
 
+source_directory=${ROS_WS}/src
+target_directory=02_URDF
 
-pip install -e ./jupyterlab-urdf
+# Find directories with the suffix "_description" in the source directory
+for dir in "$source_directory"/*_description; 
+do
+  # Check if it is a directory
+  if [ -d "$dir" ]; then
+    # Get the base name of the directory
+    base_name=$(basename "$dir")
+    # Create the symbolic link in the target directory
+    rm "$target_directory/$base_name"
+    ln -s "$dir" "$target_directory/$base_name"
+  fi
+done
+
+# pip uninstall -y jupyterlab-urdf
+# pip install -e ./jupyterlab-urdf
 
 exec "$@"

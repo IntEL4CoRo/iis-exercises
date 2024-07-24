@@ -32,21 +32,29 @@ WORKDIR ${ROS_WS}
 RUN cd src && \
     git clone -b ${ROS_DISTRO}-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 
-RUN git clone https://github.com/bdaiinstitute/spot_ros2.git /tmp/spot_ros2
-RUN mv /tmp/spot_ros2/spot_description ${ROS_WS}/src/spot_description
+# Fetch armar6 description
+RUN git clone https://github.com/sunava/armar6_description ${ROS_WS}/src/armar6_description
 
-COPY --chown=${NB_USER}:users 02_URDF/examples/t12_description ${ROS_WS}/src/t12_description
-COPY --chown=${NB_USER}:users 02_URDF/examples/iai_kitchen ${ROS_WS}/src/iai_kitchen
+# Fetch PR2 description
+RUN git clone https://github.com/PR2/pr2_common.git /tmp/pr2_common && \
+    mv /tmp/pr2_common/pr2_description ${ROS_WS}/src/pr2_description
 
-USER root
-RUN rosdep update && \
-    rosdep install --from-paths src --ignore-src  -y && \
-    rosdep fix-permissions
+RUN git clone https://github.com/code-iai/iai_pr2.git /tmp/iai_pr2 && \
+    mv /tmp/iai_pr2/iai_pr2_description ${ROS_WS}/src/iai_pr2_description
+
+# Fetch spot_description
+RUN git clone https://github.com/bdaiinstitute/spot_ros2.git /tmp/spot_ros2 && \
+    mv /tmp/spot_ros2/spot_description ${ROS_WS}/src/spot_description
+
+# USER root
+# RUN rosdep update && \
+#     rosdep install --from-paths src --ignore-src  -y && \
+#     rosdep fix-permissions
 
 USER ${NB_USER}
-RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
-    colcon build --symlink-install --parallel-workers 2
-RUN echo "source ${ROS_WS}/install/setup.bash" >> /home/${NB_USER}/.bashrc
+# RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
+#     colcon build --symlink-install --parallel-workers 2
+# RUN echo "source ${ROS_WS}/install/setup.bash" >> /home/${NB_USER}/.bashrc
 
 # Install developing jupyterlab extensions
 RUN pip install https://raw.githubusercontent.com/yxzhan/extension-examples/main/cell-toolbar/dist/jupyterlab_examples_cell_toolbar-0.1.4.tar.gz
