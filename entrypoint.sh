@@ -27,7 +27,4 @@ do
   fi
 done
 
-# pip uninstall -y jupyterlab-urdf
-# pip install -e ./jupyterlab-urdf
-
 exec "$@"
