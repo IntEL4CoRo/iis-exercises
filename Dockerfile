@@ -59,6 +59,7 @@ RUN git clone https://github.com/bdaiinstitute/spot_ros2.git /tmp/spot_ros2 && \
 # Install developing jupyterlab extensions
 RUN pip install https://raw.githubusercontent.com/yxzhan/extension-examples/main/cell-toolbar/dist/jupyterlab_examples_cell_toolbar-0.1.4.tar.gz
 RUN pip install git+https://github.com/yxzhan/jupyterlab-urdf.git@dev
+RUN pip install jupyter-ai
 
 COPY --chown=${NB_USER}:users . /home/${NB_USER}/iis-exercises
 WORKDIR /home/${NB_USER}/iis-exercises
