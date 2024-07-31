@@ -17,8 +17,10 @@ services:
     volumes:
       - ./:/home/jovyan/work
     #   - /tmp/.X11-unix:/tmp/.X11-unix:rw
-    # environment:
-    #   - DISPLAY
+    environment:
+      - OLLAMA_API_URL=http://192.168.102.13:12345
+      - OLLAMA_MODEL=llama3.1:8b
+      # - DISPLAY
     #   - NVIDIA_DRIVER_CAPABILITIES=all
     # deploy:
     #   resources:
