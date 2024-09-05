@@ -19,6 +19,12 @@ RUN apt update && apt install -y \
     apt-get clean
 
 RUN pip install --upgrade lxml
+# Install LLM libraries
+RUN pip install jupyterlab~=4.0.0 ollama openai jupyter-ai
+# Install developing jupyterlab extensions
+RUN pip install https://raw.githubusercontent.com/yxzhan/extension-examples/main/cell-toolbar/dist/jupyterlab_examples_cell_toolbar-0.1.4.tar.gz
+RUN pip install git+https://github.com/yxzhan/jupyterlab-urdf.git@dev
+
 # Need to source the gazebo setup.bash to set up the envrionment variables
 RUN echo "source /usr/share/gazebo/setup.bash" >> /home/${NB_USER}/.bashrc
 ENV GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/${ROS_DISTRO}/share/turtlebot3_gazebo/models
@@ -29,14 +35,14 @@ USER ${NB_USER}
 
 RUN mkdir -p ${ROS_WS}/src
 WORKDIR ${ROS_WS}
+# --- Fetch packages support ROS2 --- #
+# turtlebot3
 RUN cd src && \
-    git clone -b ${ROS_DISTRO}-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
-
-# Fetch spot_description
+    git clone -b ${ROS_DISTRO}-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git && \
+    git clone -b ros2 https://github.com/yxzhan/iai_office_sim.git
+# spot_description
 RUN git clone https://github.com/bdaiinstitute/spot_ros2.git /tmp/spot_ros2 && \
     mv /tmp/spot_ros2/spot_description ${ROS_WS}/src/spot_description
-
-COPY --chown=${NB_USER}:users 02_URDF/iai_kitchen ${ROS_WS}/src/iai_kitchen
 
 USER root
 RUN rosdep update && \
@@ -45,24 +51,16 @@ RUN rosdep update && \
 
 USER ${NB_USER}
 RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
-    colcon build --symlink-install --parallel-workers 2
+    colcon build --symlink-install --parallel-workers 12
 RUN echo "source ${ROS_WS}/install/setup.bash" >> /home/${NB_USER}/.bashrc
 
-# Fetch armar6 description
-RUN git clone https://github.com/cram2/armar6_description ${ROS_WS}/src/armar6_description
-
-# Fetch PR2 description
-RUN git clone https://github.com/PR2/pr2_common.git /tmp/pr2_common && \
-    mv /tmp/pr2_common/pr2_description ${ROS_WS}/src/pr2_description
-
-RUN git clone https://github.com/code-iai/iai_pr2.git /tmp/iai_pr2 && \
-    mv /tmp/iai_pr2/iai_pr2_description ${ROS_WS}/src/iai_pr2_description
-
-# Install developing jupyterlab extensions
-RUN pip install https://raw.githubusercontent.com/yxzhan/extension-examples/main/cell-toolbar/dist/jupyterlab_examples_cell_toolbar-0.1.4.tar.gz
-RUN pip install git+https://github.com/yxzhan/jupyterlab-urdf.git@dev
-# Install LLM libraries
-RUN pip install ollama openai jupyter-ai
+# --- Fetch robot descriptions to be upgraded to ROS2 --- #
+WORKDIR /home/${NB_USER}/iis-exercises/02_URDF
+# armar6
+RUN git clone https://github.com/cram2/armar6_description
+# iai PR2
+RUN git clone https://github.com/PR2/pr2_common.git
+RUN git clone https://github.com/code-iai/iai_pr2.git
 
 COPY --chown=${NB_USER}:users . /home/${NB_USER}/iis-exercises
 WORKDIR /home/${NB_USER}/iis-exercises

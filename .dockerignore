@@ -4,4 +4,7 @@
 **/common-lisp-jupyter/*
 README.md
 docker-compose.yml
-```
+
+# custom symlinks
+ROS_WS
+02_URDF/*_description
