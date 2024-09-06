@@ -54,6 +54,7 @@ RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
     colcon build --symlink-install --parallel-workers 12
 RUN echo "source ${ROS_WS}/install/setup.bash" >> /home/${NB_USER}/.bashrc
 
+COPY --chown=${NB_USER}:users . /home/${NB_USER}/iis-exercises
 # --- Fetch robot descriptions to be upgraded to ROS2 --- #
 WORKDIR /home/${NB_USER}/iis-exercises/02_URDF
 # armar6
@@ -62,7 +63,6 @@ RUN git clone https://github.com/cram2/armar6_description
 RUN git clone https://github.com/PR2/pr2_common.git
 RUN git clone https://github.com/code-iai/iai_pr2.git
 
-COPY --chown=${NB_USER}:users . /home/${NB_USER}/iis-exercises
 WORKDIR /home/${NB_USER}/iis-exercises
 
 # --- Entrypoint --- #
