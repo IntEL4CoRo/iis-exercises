@@ -34,16 +34,17 @@ WORKDIR ${ROS_WS}
 
 # --- Fetch packages support ROS2 --- #
 # turtlebot3
-RUN cd src && \
-    git clone -b ${ROS_DISTRO}-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git && \
-    git clone -b ros2 https://github.com/yxzhan/iai_office_sim.git
+WORKDIR ${ROS_WS}/src
+RUN git clone -b ${ROS_DISTRO}-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+RUN git clone -b ros2 https://github.com/yxzhan/iai_office_sim.git
 # spot_description
 RUN git clone https://github.com/bdaiinstitute/spot_ros2.git /tmp/spot_ros2 && \
     mv /tmp/spot_ros2/spot_description ${ROS_WS}/src/spot_description
 
 # --- Build ROS2 workspace --- #
+WORKDIR ${ROS_WS}
 USER root
-RUN apt update && rosdep update && \
+RUN rosdep update && \
     rosdep install --from-paths src --ignore-src  -y && \
     rosdep fix-permissions
 
