@@ -37,6 +37,7 @@ WORKDIR ${ROS_WS}
 WORKDIR ${ROS_WS}/src
 RUN git clone -b ${ROS_DISTRO}-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 RUN git clone -b ros2 https://github.com/yxzhan/iai_office_sim.git
+RUN cd iai_office_sim && git pull
 # spot_description
 RUN git clone https://github.com/bdaiinstitute/spot_ros2.git /tmp/spot_ros2 && \
     mv /tmp/spot_ros2/spot_description ${ROS_WS}/src/spot_description
