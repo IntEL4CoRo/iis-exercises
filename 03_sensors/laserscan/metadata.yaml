@@ -1,0 +1,43 @@
+rosbag2_bagfile_information:
+  compression_format: ''
+  compression_mode: ''
+  custom_data: {}
+  duration:
+    nanoseconds: 15164278769
+  files:
+  - duration:
+      nanoseconds: 15164278769
+    message_count: 1301
+    path: laserscan.db3
+    starting_time:
+      nanoseconds_since_epoch: 1699884674017767528
+  message_count: 1301
+  relative_file_paths:
+  - laserscan.db3
+  ros_distro: rosbags
+  starting_time:
+    nanoseconds_since_epoch: 1699884674017767528
+  storage_identifier: sqlite3
+  topics_with_message_count:
+  - message_count: 605
+    topic_metadata:
+      name: /scan_raw
+      offered_qos_profiles: ''
+      serialization_format: cdr
+      type: sensor_msgs/msg/LaserScan
+      type_description_hash: RIHS01_64c191398013af96509d518dac71d5164f9382553fce5c1f8cca5be7924bd828
+  - message_count: 304
+    topic_metadata:
+      name: /tf
+      offered_qos_profiles: ''
+      serialization_format: cdr
+      type: tf2_msgs/msg/TFMessage
+      type_description_hash: RIHS01_e369d0f05a23ae52508854b66f6aa0437f3449d652e8cbf22d5abe85d020f087
+  - message_count: 392
+    topic_metadata:
+      name: /scan
+      offered_qos_profiles: ''
+      serialization_format: cdr
+      type: sensor_msgs/msg/LaserScan
+      type_description_hash: RIHS01_64c191398013af96509d518dac71d5164f9382553fce5c1f8cca5be7924bd828
+  version: 8
