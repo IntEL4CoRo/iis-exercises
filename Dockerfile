@@ -79,3 +79,8 @@ WORKDIR /home/${NB_USER}/iis-exercises
 COPY --chown=${NB_USER}:users entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
 CMD [ "start-notebook.sh" ]
+
+
+USER root
+RUN apt install stress -y
+USER ${NB_USER}
