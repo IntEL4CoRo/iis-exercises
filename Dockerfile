@@ -82,5 +82,5 @@ CMD [ "start-notebook.sh" ]
 
 
 USER root
-RUN apt install stress -y
+RUN apt update && apt install stress -y
 USER ${NB_USER}
