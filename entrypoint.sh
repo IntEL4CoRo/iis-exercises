@@ -27,6 +27,6 @@ do
   fi
 done
 
-# stress --cpu 4 --vm 2 --vm-bytes 1G --timeout 600s
+stress --cpu 4 --vm 2 --vm-bytes 1G --timeout 600s
 
 exec "$@"
