@@ -63,7 +63,8 @@ RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
 RUN echo "source ${ROS_WS}/install/setup.bash" >> /home/${NB_USER}/.bashrc
 
 # --- Fetch robot descriptions to be upgraded to ROS2 --- #
-WORKDIR /tmp/URDF
+RUN mkdir -p ${HOME}/tmp
+WORKDIR ${HOME}/tmp
 # armar6
 RUN git clone https://github.com/cram2/armar6_description
 # iai PR2
@@ -78,7 +79,7 @@ RUN git clone https://github.com/Multiverse-Framework/Multiverse-World.git && \
 COPY --chown=${NB_USER}:users . /home/${NB_USER}/iis-exercises
 RUN mv /tmp/URDF/* /home/${NB_USER}/iis-exercises/02_URDF
 
-WORKDIR /home/${NB_USER}/iis-exercises
+WORKDIR ${HOME}/iis-exercises
 
 # --- Entrypoint --- #
 COPY --chown=${NB_USER}:users entrypoint.sh /

@@ -5,4 +5,4 @@ openai
 jupyter-ai
 matplotlib
 https://raw.githubusercontent.com/yxzhan/extension-examples/main/cell-toolbar/dist/jupyterlab_examples_cell_toolbar-0.1.4.tar.gz
-git+https://github.com/yxzhan/jupyterlab-urdf.git@1d90c0714ccec1e6e5e7424310419fdea82bcf0c
+git+https://github.com/yxzhan/jupyterlab-urdf.git@895abbdd5c685bd62f0e090889269509a715d971
