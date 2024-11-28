@@ -63,8 +63,13 @@ WORKDIR ${HOME}/tmp
 # armar6
 RUN git clone https://github.com/cram2/armar6_description
 # iai PR2
-RUN git clone https://github.com/PR2/pr2_common.git
-RUN git clone https://github.com/code-iai/iai_pr2.git
+RUN git clone https://github.com/PR2/pr2_common.git && \
+    mv pr2_common/pr2_description . && \
+    rm -rf pr2_common
+RUN git clone https://github.com/code-iai/iai_pr2.git && \
+    mv iai_pr2/iai_pr2_description . && \
+    rm -rf iai_pr2
+
 # HD kitchen model
 RUN git clone https://github.com/Multiverse-Framework/Multiverse-World.git && \
     mv Multiverse-World/iai_apartment ./ && \
