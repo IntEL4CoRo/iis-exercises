@@ -23,11 +23,6 @@ RUN echo "source /usr/share/gazebo/setup.bash" >> /home/${NB_USER}/.bashrc
 ENV GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/${ROS_DISTRO}/share/turtlebot3_gazebo/models
 ENV TURTLEBOT3_MODEL=waffle_pi
 
-# --- Install python packages --- #
-USER ${NB_USER}
-COPY requirements.txt /tmp/requirements.txt
-RUN pip install -r /tmp/requirements.txt
-
 # --- Create ROS workspaces --- #
 USER ${NB_USER}
 RUN mkdir -p ${ROS_WS}/src
@@ -75,9 +70,14 @@ RUN git clone https://github.com/Multiverse-Framework/Multiverse-World.git && \
     mv Multiverse-World/iai_apartment ./ && \
     rm -rf Multiverse-World
 
+# --- Install python packages --- #
+USER ${NB_USER}
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
+
 # --- Copy repo content --- #
 COPY --chown=${NB_USER}:users . /home/${NB_USER}/iis-exercises
-RUN mv /tmp/URDF/* /home/${NB_USER}/iis-exercises/02_URDF
+RUN mv  ${HOME}/tmp/* /home/${NB_USER}/iis-exercises/02_URDF
 
 WORKDIR ${HOME}/iis-exercises
 
