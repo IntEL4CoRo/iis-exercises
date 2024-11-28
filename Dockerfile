@@ -24,6 +24,7 @@ ENV GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/${ROS_DISTRO}/share/turtlebot3
 ENV TURTLEBOT3_MODEL=waffle_pi
 
 # --- Install python packages --- #
+USER ${NB_USER}
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt
 
@@ -38,8 +39,7 @@ WORKDIR ${ROS_WS}/src
 RUN git clone -b ${ROS_DISTRO}-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 
 # iai_office_sim
-RUN git clone -b ros2 https://github.com/yxzhan/iai_office_sim.git && \
-    cd iai_office_sim && git pull
+RUN git clone -b ros2 https://github.com/yxzhan/iai_office_sim.git
 # Fix the texture path not include in gazebo resource path,
 # probably a bug of gazebo.
 USER root
@@ -62,16 +62,21 @@ RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
     colcon build --symlink-install --parallel-workers 12
 RUN echo "source ${ROS_WS}/install/setup.bash" >> /home/${NB_USER}/.bashrc
 
-# --- Copy repo content --- #
-COPY --chown=${NB_USER}:users . /home/${NB_USER}/iis-exercises
-
 # --- Fetch robot descriptions to be upgraded to ROS2 --- #
-WORKDIR /home/${NB_USER}/iis-exercises/02_URDF
+WORKDIR /tmp/URDF
 # armar6
 RUN git clone https://github.com/cram2/armar6_description
 # iai PR2
 RUN git clone https://github.com/PR2/pr2_common.git
 RUN git clone https://github.com/code-iai/iai_pr2.git
+# HD kitchen model
+RUN git clone https://github.com/Multiverse-Framework/Multiverse-World.git && \
+    mv Multiverse-World/iai_apartment ./ && \
+    rm -rf Multiverse-World
+
+# --- Copy repo content --- #
+COPY --chown=${NB_USER}:users . /home/${NB_USER}/iis-exercises
+RUN mv /tmp/URDF/* /home/${NB_USER}/iis-exercises/02_URDF
 
 WORKDIR /home/${NB_USER}/iis-exercises
 
