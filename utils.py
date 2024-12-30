@@ -9,6 +9,10 @@ from sensor_msgs.msg import LaserScan
 import rclpy
 from rclpy.node import Node
 
+# Init the rclpy client
+if not rclpy.ok():
+    rclpy.init(args=None)
+
 # Display remote desktop on sidecar tab
 def display_desktop(anchor='right'):
     try:
