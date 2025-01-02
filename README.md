@@ -1,6 +1,6 @@
 # Integrated Intelligent Systems Course Exercises
 
-[![Binder](https://binder.intel4coro.de/badge_logo.svg)](https://binder.intel4coro.de/v2/gh/IntEL4CoRo/iis-exercises.git/main)
+[![Binder](https://binder.intel4coro.de/badge_logo.svg)](https://binder.intel4coro.de/v2/gh/IntEL4CoRo/iis-exercises.git/dev)
 
 Exercises of EDX course [Integrated Intelligent Systems](https://edx.intel4coro.de/courses/course-v1:UNI_BREMEN+IIS+2024_T2/about).
 
