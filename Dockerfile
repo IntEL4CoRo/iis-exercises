@@ -82,7 +82,8 @@ RUN pip install -r /tmp/requirements.txt
 
 # --- Copy repo content --- #
 COPY --chown=${NB_USER}:users . /home/${NB_USER}/iis-exercises
-RUN mv  ${HOME}/tmp/* /home/${NB_USER}/iis-exercises/02_URDF
+# RUN mv  ${HOME}/tmp/* /home/${NB_USER}/iis-exercises/02_URDF
+RUN for dir in ${HOME}/tmp/*/; do ln -s "$dir" ${HOME}/iis-exercises/02_URDF/*/$(basename "$dir"); done
 
 WORKDIR ${HOME}/iis-exercises
 
