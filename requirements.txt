@@ -1,5 +1,6 @@
 lxml
 jupyterlab~=4.0.0
+numpy<2
 ultralytics
 torch
 opencv-python
