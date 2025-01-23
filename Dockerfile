@@ -87,6 +87,9 @@ RUN for dir in ${HOME}/tmp/*; do ln -s "$dir" ${HOME}/iis-exercises/02_URDF/$(ba
 
 WORKDIR ${HOME}/iis-exercises
 
+RUN cd ${ROS_WS}/src/iai_office_sim && \
+    git pull
+
 # --- Entrypoint --- #
 COPY --chown=${NB_USER}:users entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
