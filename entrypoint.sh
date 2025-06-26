@@ -2,10 +2,11 @@
 
 # Set ros envrionment variables
 source ${ROS_PATH}/setup.bash
-# Set Gazebo envrionment variables
-source /usr/share/gazebo/setup.bash
 # Set workspace variables
 source ${ROS_WS}/install/setup.bash
+
+# Set Gazebo environment variables
+source /usr/share/gazebo/setup.bash
 
 # create symbolic links to the ROS workspace
 rm ROS_WS

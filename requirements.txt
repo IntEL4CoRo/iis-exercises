@@ -4,6 +4,9 @@ numpy<2
 ultralytics
 torch
 opencv-python
+# filterpy
+# ollama
+# jupyter-ai
 matplotlib
-https://raw.githubusercontent.com/yxzhan/extension-examples/main/cell-toolbar/dist/jupyterlab_examples_cell_toolbar-0.1.4.tar.gz
-git+https://github.com/yxzhan/jupyterlab-urdf.git@367986c4a51bcdbc4daac81dabbffd4283552fdc
+jupyter-remote-desktop-proxy~=3.0.0
+# git+https://github.com/yxzhan/jupyterlab-urdf.git@367986c4a51bcdbc4daac81dabbffd4283552fdc

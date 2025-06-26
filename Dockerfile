@@ -18,7 +18,7 @@ RUN apt update && apt install -y \
     rm -rf /var/lib/apt/lists/* && \
     apt-get clean
 
-# Source the gazebo setup.bash to set up the envrionment variables
+# Source the gazebo setup.bash to set up the environment variables
 RUN echo "source /usr/share/gazebo/setup.bash" >> /home/${NB_USER}/.bashrc
 ENV GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/${ROS_DISTRO}/share/turtlebot3_gazebo/models
 ENV TURTLEBOT3_MODEL=waffle_pi
@@ -35,8 +35,11 @@ RUN git clone -b ${ROS_DISTRO}-devel https://github.com/ROBOTIS-GIT/turtlebot3_s
 
 # iai_office_sim
 RUN git clone -b ros2 https://github.com/yxzhan/iai_office_sim.git
+# Fix the texture path not include in gazebo resource path
+ENV GAZEBO_RESOURCE_PATH=$GAZEBO_RESOURCE_PATH:${ROS_WS}/src/iai_office_sim/resource
+ENV GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:${ROS_WS}/src/iai_office_sim/models
+
 # Fix the texture path not include in gazebo resource path,
-# probably a bug of gazebo.
 USER root
 RUN cp $ROS_WS/src/iai_office_sim/resource/Media/materials/textures/* /usr/share/gazebo-11/media/materials/textures/
 USER ${NB_USER}
@@ -86,9 +89,6 @@ COPY --chown=${NB_USER}:users . /home/${NB_USER}/iis-exercises
 RUN for dir in ${HOME}/tmp/*; do ln -s "$dir" ${HOME}/iis-exercises/02_URDF/$(basename "$dir"); done
 
 WORKDIR ${HOME}/iis-exercises
-
-RUN cd ${ROS_WS}/src/iai_office_sim && \
-    git pull
 
 # --- Entrypoint --- #
 COPY --chown=${NB_USER}:users entrypoint.sh /
