@@ -31,7 +31,7 @@ WORKDIR ${ROS_WS}
 # --- Fetch packages support ROS2 --- #
 # turtlebot3
 WORKDIR ${ROS_WS}/src
-RUN git clone -b ${ROS_DISTRO}-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+RUN git clone -b ${ROS_DISTRO} https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 
 # iai_office_sim
 RUN git clone -b ros2 https://github.com/yxzhan/iai_office_sim.git
